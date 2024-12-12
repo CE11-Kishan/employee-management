@@ -1,0 +1,116 @@
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.add-icon {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    height: 50px;
+    width: 50px;
+    background-color: #1DA1F2;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.add-icon:hover {
+    background-color: #1b71a6;
+}
+
+.employee-list {
+    background-color: #F2F2F2;
+    height: 100%;
+    width: 100%;
+}
+
+.employee-section-title {
+    height: 56px;
+    padding: 16px;
+    font-size: 18px;
+    color: #1DA1F2;
+}
+
+.employee-drop-list {
+    padding: 10px;
+}
+
+.employee-card-container {
+    position: relative;
+    margin-bottom: 10px;
+    cursor: grab;
+}
+
+.employee-card {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 2px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.employee-card-container.dragging .employee-card {
+    transform: scale(1.02);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: none;
+}
+
+/* Placeholder styles */
+.cdk-drag-placeholder {
+    opacity: 0.5;
+    border: 2px dashed red;
+    border-radius: 8px;
+}
+
+.cdk-drag-placeholder {
+    background-color: rgba(255, 0, 0, 0.2) !important; /* Light red background */
+    opacity: 1 !important;
+    height: 100% !important;
+    width: 100% !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Dragging styles */
+.cdk-drag-dragging {
+    cursor: grabbing;
+}
+
+.emp-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.emp-role, .emp-from, .swip-info {
+    color: grey;
+}
+
+.emp-role {
+    font-size: 16px;
+}
+
+.emp-from , .swip-info {
+    font-size: 14px;
+}
+
+.swip-info{
+    position: absolute;
+    bottom: 8px;
+    left: 8px
+}
+
+/* Angular CDK Drag styles */
+.cdk-drag {
+    cursor: grab;
+}
+
+.cdk-drag-dragging {
+    cursor: grabbing;
+}

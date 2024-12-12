@@ -2,7 +2,73 @@
     <header>
         Employee List
     </header>
-    <div>
-        
+    <div class="center">
+        @if(currentEmployees.length === 0 && previousEmployees.length === 0){
+        <img src="images/no-record-found.svg" alt="No record found image" />
+        }@else {
+        <div class="employee-list">
+            <!-- Current Employees Section -->
+            <div *ngIf="currentEmployees.length > 0" class="employee-section">
+                <div class="employee-section-title">
+                    Current Employees
+                </div>
+                <div 
+                    class="employee-drop-list"
+                    cdkDropList
+                >
+                    <div 
+                        *ngFor="let employee of currentEmployees"
+                        cdkDrag
+                        (cdkDragStarted)="onDragStarted(employee)"
+                        (cdkDragMoved)="onDragMoved($event, employee)"
+                        (cdkDragReleased)="onDragReleased($event, employee)"
+                        class="employee-card-container"
+                        [class.dragging]="draggedEmployee === employee"
+                        cdkDragLockAxis="x"
+                    >
+                        <div class="employee-card">
+                            <span class="emp-name">{{ employee.name }}</span>
+                            <span class="emp-role">{{ employee.role }}</span>
+                            <span class="emp-from">From {{ employee.startDate | date }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previous Employees Section -->
+            <div *ngIf="previousEmployees.length > 0" class="employee-section">
+                <div class="employee-section-title">
+                    Previous Employees
+                </div>
+                <div 
+                    class="employee-drop-list"
+                    cdkDropList
+                >
+                    <div 
+                        *ngFor="let employee of previousEmployees"
+                        cdkDrag
+                        (cdkDragStarted)="onDragStarted(employee)"
+                        (cdkDragMoved)="onDragMoved($event, employee)"
+                        (cdkDragReleased)="onDragReleased($event, employee)"
+                        class="employee-card-container"
+                        [class.dragging]="draggedEmployee === employee"
+                        cdkDragLockAxis="x"
+                    >
+                        <div class="employee-card" >
+                            <span class="emp-name">{{ employee.name }}</span>
+                            <span class="emp-role">{{ employee.role }}</span>
+                            <span class="emp-from">From {{ employee.startDate | date }} - {{ employee.endDate | date }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="add-icon center" [routerLink]="'/add-employee-detail'">
+        <img src="icons/add.svg" alt="Add icon" />
+    </div>
+    <div class="swip-info" [routerLink]="'/add-employee-detail'">
+       Swipe left to delete
     </div>
 </main>

@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 *{
     margin: 0;
     padding: 0;
@@ -11,7 +12,6 @@ body{
 
 
 header {
-    width: 100%;
     background-color: #1DA1F2;
     display: flex;
     align-items: center;
@@ -19,5 +19,12 @@ header {
     font-size: 18px;
     color: white;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
