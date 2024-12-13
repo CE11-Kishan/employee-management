@@ -61,13 +61,11 @@ export class EditEmployeeComponent implements OnInit {
   isFormValid = signal<boolean>(false);
   availableRoles = signal<string[]>(['Developer', 'Designer', 'Manager', 'Tester']);
 
-  // Form Group with typed controls
   employeeForm: FormGroup<EmployeeForm>;
 
   constructor(
     private route: ActivatedRoute,
   ) {
-    // Create form with typed controls and validators
     this.employeeForm = this.fb.group<EmployeeForm>({
       name: new FormControl<string | null>('', [Validators.required]),
       role: new FormControl<string | null>('', [Validators.required]),
@@ -82,11 +80,9 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Retrieve the ID from the route
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       
-      // Ensure the ID is a valid number
       if (idParam) {
         this.employeeId = parseInt(idParam, 10);
         
@@ -126,26 +122,22 @@ export class EditEmployeeComponent implements OnInit {
     if (this.employeeForm.valid) {
       const employeeData: Employee = this.employeeForm.getRawValue() as Employee;
       
-      // Check if we're updating an existing employee or adding a new one
       if (this.employeeId) {
-        // Update existing employee logic would go here
-        // You might want to add an updateEmployee method to IndexedDBService
-        console.log('Update existing employee', employeeData);
-      } else {
-        // Add new employee
         this.indexedDBService.addEmployee(employeeData);
       }
       
       this.router.navigate(['/']);
-      this.resetForm();
+      this.cancelForm();
     }
   }
 
-  resetForm(): void {
+  cancelForm(): void {
     this.employeeForm.reset();
+    this.router.navigate(['/']);
   }
 
   deleteEmployee(): void {
-    this.indexedDBService.deleteEmployee(this.employeeId)
+    this.indexedDBService.deleteEmployee(this.employeeId);
+    this.router.navigate(['/']);
   }
 }

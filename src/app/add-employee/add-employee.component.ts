@@ -98,11 +98,12 @@ export class AddEmployeeComponent implements OnInit {
       const employeeData: Employee = this.employeeForm.getRawValue() as Employee;
       this.indexedDBService.addEmployee(employeeData);
       this.router.navigate(['/']);
-      this.resetForm();
+      this.employeeForm.reset();
     }
   }
 
-  resetForm(): void {
+  cancelForm(): void {
     this.employeeForm.reset();
+    this.router.navigate(['/']);
   }
 }

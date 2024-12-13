@@ -4,6 +4,8 @@
     </header>
     <div class="center">
         <form class="employee-form" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+            <div class="field">
+
             <mat-form-field appearance="outline">
                 <mat-label>Employee Name</mat-label>
                 <mat-icon matPrefix>person_outline</mat-icon>
@@ -20,6 +22,7 @@
                     placeholder="Select Role" 
                     readonly
                 >
+                <mat-icon matSuffix>arrow_drop_down</mat-icon>
                 <mat-error *ngIf="employeeForm.get('role')?.invalid">Role is required</mat-error>
             </mat-form-field>
 
@@ -32,7 +35,7 @@
                         formControlName="startDate"
                         placeholder="Choose start date"
                     >
-                    <mat-datepicker-toggle matSuffix [for]="startPicker">
+                    <mat-datepicker-toggle matPrefix [for]="startPicker">
                         <mat-icon matDatepickerToggleIcon>event</mat-icon>
                     </mat-datepicker-toggle>
                     <mat-datepicker 
@@ -42,6 +45,8 @@
                     <mat-error *ngIf="employeeForm.get('startDate')?.invalid">Start Date is required</mat-error>
                 </mat-form-field>
 
+                <mat-icon class="arrow-icon">east</mat-icon>
+
                 <mat-form-field appearance="outline">
                     <mat-label>End Date</mat-label>
                     <input 
@@ -50,7 +55,7 @@
                         formControlName="endDate" 
                         placeholder="Choose end date"
                     >
-                    <mat-datepicker-toggle matSuffix [for]="endPicker">
+                    <mat-datepicker-toggle matPrefix [for]="endPicker">
                         <mat-icon matDatepickerToggleIcon>event</mat-icon>
                     </mat-datepicker-toggle>
                     <mat-datepicker 
@@ -60,15 +65,16 @@
                     <mat-error *ngIf="employeeForm.get('endDate')?.invalid">End Date is required</mat-error>
                 </mat-form-field>
             </div>
-            <hr />
+        </div>
+
             <div class="save-reset-btn">
                 <button 
                     mat-raised-button 
                     color="secondary" 
                     type="button" 
-                    (click)="resetForm()"
+                    (click)="cancelForm()"
                 >
-                    Reset
+                    Cancel
                 </button>
                 <button 
                     mat-raised-button 
