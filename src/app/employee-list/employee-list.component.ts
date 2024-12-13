@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IndexedDBService } from '../services/indexdbservice.service';
 import { Employee } from '../model/employee';
 import { DatePipe, CommonModule } from '@angular/common';
@@ -25,7 +25,7 @@ export class EmployeeListComponent implements OnInit {
   public draggedEmployee: Employee | null = null;
   public dragProgress: { [key: string]: number } = {};
 
-  constructor(private indexedDBService: IndexedDBService) {}
+  constructor(private indexedDBService: IndexedDBService, private router: Router) {}
 
   ngOnInit() {
     this.loadEmployees();
@@ -66,7 +66,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   deleteEmployee(employee: Employee) {
-    this.indexedDBService.deleteEmployee(employee.id).subscribe({
+    this.indexedDBService.deleteEmployee(employee.id)?.subscribe({
       next: () => {
         // Remove from local arrays
         this.currentEmployees = this.currentEmployees.filter(e => e.id !== employee.id);
@@ -96,4 +96,11 @@ export class EmployeeListComponent implements OnInit {
     delete this.dragProgress[employee.id];
     this.draggedEmployee = null;
   }
+
+  editEmployee(employee: Employee) {
+    // Logic to edit the employee
+    console.log('Helllo world')
+    // For example, navigate to an edit page or open a modal
+    this.router.navigate(['/edit-employee-detail', employee.id]);
+}
 }

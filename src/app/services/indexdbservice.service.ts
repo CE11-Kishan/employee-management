@@ -131,4 +131,34 @@ export class IndexedDBService {
       console.error('Error restoring employee to IndexedDB', event);
     };
   }
+
+  getEmployeeById(id: number): Observable<Employee | null> {
+    // Ensure the database is initialized
+    if (!this.db) {
+      console.error('Database not initialized');
+    }
+
+    return new Observable<Employee | null>((observer) => {
+      const transaction = this.db?.transaction(['employees'], 'readonly');
+      const store = transaction?.objectStore('employees');
+      
+      if (!store) {
+        console.error('Store not found.');
+        return;
+      }
+      
+      const request = store.get(id);
+      request.onsuccess = (event) => {
+        const employee = (event.target as IDBRequest<Employee>).result;
+        observer.next(employee || null);
+        observer.complete();
+      };
+
+      request.onerror = (event) => {
+        console.error('Error fetching employee by ID', event);
+        observer.next(null);
+        observer.complete();
+      };
+    });
+  }
 }

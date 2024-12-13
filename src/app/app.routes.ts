@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: AddEmployeeComponent
     },
     {
-        path: 'edit-employee-detail',
+        path: 'edit-employee-detail/:id',
         component: EditEmployeeComponent
     },
     {

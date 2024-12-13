@@ -29,20 +29,19 @@ main {
 }
 
 .employee-section-title {
-    height: 56px;
     padding: 16px;
     font-size: 18px;
     color: #1DA1F2;
 }
 
-.employee-drop-list {
+/* .employee-drop-list {
     padding: 10px;
-}
+} */
 
 .employee-card-container {
     position: relative;
-    margin-bottom: 10px;
-    cursor: grab;
+    margin-bottom: 2px;
+    /* cursor: grab; */
 }
 
 .employee-card {
@@ -51,36 +50,27 @@ main {
     flex-direction: column;
     padding: 16px;
     gap: 2px;
-    border-radius: 8px;
     transition: all 0.3s ease;
 }
 
 .employee-card-container.dragging .employee-card {
-    transform: scale(1.02);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: none;
+    /* transform: scale(1); */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 /* Placeholder styles */
 .cdk-drag-placeholder {
-    opacity: 0.5;
-    border: 2px dashed red;
-    border-radius: 8px;
-}
-
-.cdk-drag-placeholder {
-    background-color: rgba(255, 0, 0, 0.2) !important; /* Light red background */
+    border: 1px dashed red;
+    background-color: rgba(255, 0, 0, 0.2) !important;
     opacity: 1 !important;
     height: 100% !important;
     width: 100% !important;
     position: relative !important;
     display: flex !important;
-    align-items: center !important;
 }
 
-/* Dragging styles */
-.cdk-drag-dragging {
-    cursor: grabbing;
+.cdk-drag-placeholder>div {
+    opacity: 0;
 }
 
 .emp-name {
@@ -88,7 +78,7 @@ main {
     font-size: 16px;
 }
 
-.emp-role, .emp-from, .swip-info {
+.emp-role, .emp-from {
     color: grey;
 }
 
@@ -96,20 +86,23 @@ main {
     font-size: 16px;
 }
 
-.emp-from , .swip-info {
+.emp-from {
     font-size: 14px;
 }
 
-.swip-info{
+.swip-info {
     position: absolute;
     bottom: 8px;
-    left: 8px
+    left: 8px;
+    font-size: 12px;
+    color: grey;
+    text-align: left;
 }
 
 /* Angular CDK Drag styles */
-.cdk-drag {
+/* .cdk-drag {
     cursor: grab;
-}
+} */
 
 .cdk-drag-dragging {
     cursor: grabbing;

@@ -1,11 +1,151 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { 
+  ReactiveFormsModule, 
+  FormBuilder, 
+  FormGroup, 
+  Validators, 
+  FormControl 
+} from '@angular/forms';
+
+// Angular Material Imports
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+
+import { IndexedDBService } from '../services/indexdbservice.service';
+import { Employee } from '../model/employee';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoleBottomSheetComponent } from '../role-bottom-sheet/role-bottom-sheet.component';
+
+interface EmployeeForm {
+  name: FormControl<string | null>;
+  role: FormControl<string | null>;
+  startDate: FormControl<Date | null>;
+  endDate: FormControl<Date | null>;
+}
 
 @Component({
   selector: 'app-edit-employee',
-  imports: [],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatIconModule,
+    MatBottomSheetModule,
+    MatListModule
+  ],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.css'
 })
-export class EditEmployeeComponent {
+export class EditEmployeeComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private indexedDBService = inject(IndexedDBService);
+  private router = inject(Router);
+  private bottomSheet = inject(MatBottomSheet);
+  employeeId!: number;
 
+  // Signals
+  isFormValid = signal<boolean>(false);
+  availableRoles = signal<string[]>(['Developer', 'Designer', 'Manager', 'Tester']);
+
+  // Form Group with typed controls
+  employeeForm: FormGroup<EmployeeForm>;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    // Create form with typed controls and validators
+    this.employeeForm = this.fb.group<EmployeeForm>({
+      name: new FormControl<string | null>('', [Validators.required]),
+      role: new FormControl<string | null>('', [Validators.required]),
+      startDate: new FormControl<Date | null>(null, [Validators.required]),
+      endDate: new FormControl<Date | null>(null, [Validators.required])
+    });
+
+    // Watch form validity
+    this.employeeForm.statusChanges.subscribe(() => {
+      this.isFormValid.set(this.employeeForm.valid);
+    });
+  }
+
+  ngOnInit() {
+    // Retrieve the ID from the route
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      
+      // Ensure the ID is a valid number
+      if (idParam) {
+        this.employeeId = parseInt(idParam, 10);
+        
+        // Fetch the employee details using the ID
+        this.indexedDBService.getEmployeeById(this.employeeId).subscribe(employee => {
+          if (employee) {
+            // Populate the form with existing employee data
+            this.employeeForm.patchValue({
+              name: employee.name,
+              role: employee.role,
+              startDate: employee.startDate,
+              endDate: employee.endDate
+            });
+          } else {
+            // Handle case where employee is not found
+            console.error('Employee not found');
+            this.router.navigate(['/']);
+          }
+        });
+      }
+    });
+  }
+
+  openRoleBottomSheet(): void {
+    const sheetRef = this.bottomSheet.open(RoleBottomSheetComponent, {
+      data: { roles: this.availableRoles() }
+    });
+
+    sheetRef.afterDismissed().subscribe((selectedRole: string) => {
+      if (selectedRole) {
+        this.employeeForm.patchValue({ role: selectedRole });
+      }
+    });
+  }
+
+  saveEmployee(): void {
+    if (this.employeeForm.valid) {
+      const employeeData: Employee = this.employeeForm.getRawValue() as Employee;
+      
+      // Check if we're updating an existing employee or adding a new one
+      if (this.employeeId) {
+        // Update existing employee logic would go here
+        // You might want to add an updateEmployee method to IndexedDBService
+        console.log('Update existing employee', employeeData);
+      } else {
+        // Add new employee
+        this.indexedDBService.addEmployee(employeeData);
+      }
+      
+      this.router.navigate(['/']);
+      this.resetForm();
+    }
+  }
+
+  resetForm(): void {
+    this.employeeForm.reset();
+  }
+
+  deleteEmployee(): void {
+    this.indexedDBService.deleteEmployee(this.employeeId)
+  }
 }

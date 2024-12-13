@@ -1,0 +1,8 @@
+<mat-nav-list>
+    <mat-list-item 
+      *ngFor="let role of roles" 
+      (click)="selectRole(role)"
+    >
+      {{ role }}
+    </mat-list-item>
+  </mat-nav-list>

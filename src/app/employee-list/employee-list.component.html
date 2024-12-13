@@ -25,8 +25,8 @@
                         class="employee-card-container"
                         [class.dragging]="draggedEmployee === employee"
                         cdkDragLockAxis="x"
-                    >
-                        <div class="employee-card">
+                    >                    
+                        <div class="employee-card" (dblclick)="editEmployee(employee)" >
                             <span class="emp-name">{{ employee.name }}</span>
                             <span class="emp-role">{{ employee.role }}</span>
                             <span class="emp-from">From {{ employee.startDate | date }}</span>
@@ -54,7 +54,7 @@
                         [class.dragging]="draggedEmployee === employee"
                         cdkDragLockAxis="x"
                     >
-                        <div class="employee-card" >
+                        <div class="employee-card" (dblclick)="editEmployee(employee)" >
                             <span class="emp-name">{{ employee.name }}</span>
                             <span class="emp-role">{{ employee.role }}</span>
                             <span class="emp-from">From {{ employee.startDate | date }} - {{ employee.endDate | date }}</span>
@@ -69,6 +69,7 @@
         <img src="icons/add.svg" alt="Add icon" />
     </div>
     <div class="swip-info" [routerLink]="'/add-employee-detail'">
-       Swipe left to delete
+       Swipe left to delete employee <br>
+       Double click to edit employee
     </div>
 </main>

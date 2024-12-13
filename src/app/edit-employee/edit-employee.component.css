@@ -1,0 +1,24 @@
+.employee-form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px;
+    justify-content: center;
+    height: 100%;
+}
+
+.date-container{
+    display: flex;
+    gap: 16px;
+}
+
+.save-reset-btn{
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    margin-top: auto;
+}
+
+::ng-deep .mat-mdc-form-field-infix{
+    width: 100% !important;
+}
