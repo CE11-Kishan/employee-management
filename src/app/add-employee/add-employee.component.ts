@@ -23,6 +23,8 @@ import { IndexedDBService } from '../services/indexdbservice.service';
 import { Employee } from '../model/employee';
 import { Router } from '@angular/router';
 import { RoleBottomSheetComponent } from '../role-bottom-sheet/role-bottom-sheet.component';
+import { DatepickerHeaderComponent } from '../calendar/datepicker-header/datepicker-header.component';
+import { DatepickerFooterComponent } from '../calendar/datepicker-footer/datepicker-footer.component';
 
 interface EmployeeForm {
   name: FormControl<string | null>;
@@ -45,7 +47,9 @@ interface EmployeeForm {
     MatButtonModule,
     MatIconModule,
     MatBottomSheetModule,
-    MatListModule
+    MatListModule,
+    DatepickerHeaderComponent,
+    DatepickerFooterComponent
   ],
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
@@ -56,6 +60,10 @@ export class AddEmployeeComponent implements OnInit {
   private indexedDBService = inject(IndexedDBService);
   private router = inject(Router);
   private bottomSheet = inject(MatBottomSheet);
+  public startDate = new Date();
+  datepickerHeader = DatepickerHeaderComponent;
+
+
 
   // Signals
   isFormValid = signal<boolean>(false);
@@ -105,5 +113,15 @@ export class AddEmployeeComponent implements OnInit {
   cancelForm(): void {
     this.employeeForm.reset();
     this.router.navigate(['/']);
+  }
+
+  onDateSaved(selectedDate: Date | null): void {
+    console.log('Saved Date:', selectedDate);
+    // Perform additional actions like updating the form or closing the datepicker
+  }
+
+  onDateCanceled(): void {
+    console.log('Date selection canceled');
+    // Handle cancel action (e.g., reset datepicker state)
   }
 }

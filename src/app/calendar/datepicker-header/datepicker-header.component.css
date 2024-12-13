@@ -1,0 +1,11 @@
+.custom-header {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .custom-header > button {
+    width: 48%;
+  }

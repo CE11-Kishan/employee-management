@@ -1,14 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     width: 100vw;
     height: 100vh;
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     overflow: hidden;
 }
 
@@ -33,4 +33,20 @@ header {
 mat-bottom-sheet-container {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+}
+
+.mat-calendar {
+    margin: 0;
+}
+
+.mat-calendar-table {
+    margin: 8px;
+}
+
+.mat-calendar-body {
+    text-align: center;
+}
+
+.mat-button {
+    color: #1976d2;
 }
