@@ -34,14 +34,9 @@ main {
     color: #1DA1F2;
 }
 
-/* .employee-drop-list {
-    padding: 10px;
-} */
-
 .employee-card-container {
     position: relative;
     margin-bottom: 2px;
-    /* cursor: grab; */
 }
 
 .employee-card {
@@ -53,12 +48,6 @@ main {
     transition: all 0.3s ease;
 }
 
-.employee-card-container.dragging .employee-card {
-    /* transform: scale(1); */
-    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-}
-
-/* Placeholder styles */
 .cdk-drag-placeholder {
     border: 1px dashed red;
     background-color: rgba(255, 0, 0, 0.2) !important;
@@ -76,18 +65,20 @@ main {
 .emp-name {
     font-weight: bold;
     font-size: 16px;
+    line-height: 24px;
 }
 
 .emp-role, .emp-from {
     color: grey;
+    line-height: 20px;
 }
 
 .emp-role {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .emp-from {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .swip-info {
@@ -98,11 +89,6 @@ main {
     color: grey;
     text-align: left;
 }
-
-/* Angular CDK Drag styles */
-/* .cdk-drag {
-    cursor: grab;
-} */
 
 .cdk-drag-dragging {
     cursor: grabbing;
