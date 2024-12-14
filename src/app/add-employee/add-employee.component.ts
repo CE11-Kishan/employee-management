@@ -7,6 +7,8 @@ import {
   Validators, 
   FormControl 
 } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
 
 // Angular Material Imports
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,7 +47,9 @@ interface EmployeeForm {
     MatButtonModule,
     MatIconModule,
     MatBottomSheetModule,
-    MatListModule
+    MatListModule,
+    ButtonModule,
+    DatePickerModule
   ],
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
@@ -63,6 +67,7 @@ export class AddEmployeeComponent implements OnInit {
 
   // Form Group with typed controls
   employeeForm: FormGroup<EmployeeForm>;
+  today: Date = new Date();
 
   constructor() {
     // Create form with typed controls and validators

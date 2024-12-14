@@ -46,6 +46,7 @@ main {
     padding: 16px;
     gap: 2px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .cdk-drag-placeholder {

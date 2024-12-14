@@ -23,6 +23,7 @@ import { IndexedDBService } from '../services/indexdbservice.service';
 import { Employee } from '../model/employee';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoleBottomSheetComponent } from '../role-bottom-sheet/role-bottom-sheet.component';
+import { ButtonModule } from 'primeng/button';
 
 interface EmployeeForm {
   name: FormControl<string | null>;
@@ -45,7 +46,8 @@ interface EmployeeForm {
     MatButtonModule,
     MatIconModule,
     MatBottomSheetModule,
-    MatListModule
+    MatListModule,
+    ButtonModule
   ],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.css'

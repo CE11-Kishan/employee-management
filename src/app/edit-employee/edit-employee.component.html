@@ -73,22 +73,8 @@
             </div>
             
             <div class="save-reset-btn">
-                <button 
-                    mat-raised-button 
-                    color="secondary" 
-                    type="button" 
-                    (click)="cancelForm()"
-                >
-                    Cancel
-                </button>
-                <button 
-                    mat-raised-button 
-                    color="primary" 
-                    type="submit" 
-                    [disabled]="!isFormValid()"
-                >
-                    Save
-                </button>
+                <p-button (click)="cancelForm()" label="Cancel" severity="secondary" />
+                <p-button [disabled]="!isFormValid()" type="submit" label="Save" severity="info" />
             </div>
         </form>
     </div>
