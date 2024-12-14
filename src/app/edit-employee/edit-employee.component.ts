@@ -73,7 +73,6 @@ export class EditEmployeeComponent implements OnInit {
       endDate: new FormControl<Date | null>(null, [Validators.required])
     });
 
-    // Watch form validity
     this.employeeForm.statusChanges.subscribe(() => {
       this.isFormValid.set(this.employeeForm.valid);
     });
@@ -86,10 +85,8 @@ export class EditEmployeeComponent implements OnInit {
       if (idParam) {
         this.employeeId = parseInt(idParam, 10);
         
-        // Fetch the employee details using the ID
         this.indexedDBService.getEmployeeById(this.employeeId).subscribe(employee => {
           if (employee) {
-            // Populate the form with existing employee data
             this.employeeForm.patchValue({
               name: employee.name,
               role: employee.role,
@@ -97,7 +94,6 @@ export class EditEmployeeComponent implements OnInit {
               endDate: employee.endDate
             });
           } else {
-            // Handle case where employee is not found
             console.error('Employee not found');
             this.router.navigate(['/']);
           }

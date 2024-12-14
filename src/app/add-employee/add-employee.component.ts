@@ -51,7 +51,6 @@ interface EmployeeForm {
   styleUrls: ['./add-employee.component.css'],
 })
 export class AddEmployeeComponent implements OnInit {
-  // Dependency Injection using inject()
   private fb = inject(FormBuilder);
   private indexedDBService = inject(IndexedDBService);
   private router = inject(Router);
@@ -65,7 +64,6 @@ export class AddEmployeeComponent implements OnInit {
   employeeForm: FormGroup<EmployeeForm>;
 
   constructor() {
-    // Create form with typed controls and validators
     this.employeeForm = this.fb.group<EmployeeForm>({
       name: new FormControl<string | null>('', [Validators.required]),
       role: new FormControl<string | null>('', [Validators.required]),
@@ -73,7 +71,6 @@ export class AddEmployeeComponent implements OnInit {
       endDate: new FormControl<Date | null>(null, [Validators.required])
     });
 
-    // Watch form validity
     this.employeeForm.statusChanges.subscribe(() => {
       this.isFormValid.set(this.employeeForm.valid);
     });
